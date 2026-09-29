@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Gerencial de Resultados - Comparativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; transition: background-color 0.3s; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .progress-bar-animated { transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-12">
+
+    <header class="bg-indigo-900 text-white sticky top-0 z-50 shadow-lg" id="main-header">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between h-auto sm:h-16 py-3 sm:py-0 gap-3">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-chart-pie text-2xl text-indigo-400"></i>
+                    <h1 class="text-xl font-bold tracking-tight">Comparativo Bimestral: <span class="text-indigo-300 font-normal text-sm ml-2">JULHO/2026 x AGOSTO 2026</span></h1>
+                </div>
+            </div>
+            
+            <nav class="flex overflow-x-auto hide-scrollbar space-x-1 pb-2 mt-2 sm:mt-0">
+                <button onclick="switchTab('visao')" id="tab-visao" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg transition-colors bg-white text-indigo-900 relative">
+                    <i class="fa-solid fa-chart-line mr-2"></i>Visão Geral
+                </button>
+                <button onclick="switchTab('carteiras')" id="tab-carteiras" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg transition-colors text-indigo-100 hover:bg-white/10 relative">
+                    <i class="fa-solid fa-briefcase mr-2"></i>Carteiras
+                </button>
+                <button onclick="switchTab('diario')" id="tab-diario" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg transition-colors text-indigo-100 hover:bg-white/10 relative">
+                    <i class="fa-solid fa-calendar-day mr-2"></i>Diário
+                </button>
+                <button onclick="switchTab('publicacoes')" id="tab-publicacoes" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg transition-colors text-indigo-100 hover:bg-white/10 relative">
+                    <i class="fa-solid fa-layer-group mr-2"></i>Publicações
+                </button>
+                <button onclick="switchTab('atividades')" id="tab-atividades" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg transition-colors text-indigo-100 hover:bg-white/10 relative">
+                    <i class="fa-solid fa-list-check mr-2"></i>Atividades
+                </button>
+                <button onclick="switchTab('erros')" id="tab-erros" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg transition-colors text-indigo-100 hover:bg-white/10 relative">
+                    <i class="fa-solid fa-triangle-exclamation mr-2"></i>Erros
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+
+        <section id="visao" class="tab-content active">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Relatório Operacional - Desempenho e Produtividade</h2>
+                <p class="text-slate-500 text-sm">Consolidado Geral de Publicações e Informações por Pessoa (Julho vs Agosto)</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8">
+                <!-- COLUNA JULHO -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-3">
+                        <i class="fa-regular fa-calendar text-slate-400 text-xl"></i>
+                        <h3 class="text-xl font-black text-slate-600 uppercase tracking-wide">Resultados Julho</h3>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-2xl shadow-sm bg-gradient-to-br from-slate-600 to-slate-800 text-white relative overflow-hidden">
+                        <div class="absolute right-0 top-0 opacity-10 transform translate-x-4 -translate-y-4">
+                            <i class="fa-solid fa-chart-bar text-9xl"></i>
+                        </div>
+                        <h3 class="text-slate-300 font-medium mb-1">Total de Publicações</h3>
+                        <div class="text-5xl font-black mb-2 tracking-tight">25.995</div>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-200 bg-slate-50">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-800">Ranking Julho</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">TFC</span><span class="font-bold text-slate-700">7.825 <span class="text-xs text-slate-400 font-normal ml-1">(30,1%)</span></span></div><div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-slate-500 h-2 rounded-full" style="width: 100%"></div></div></div>
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">ANBS</span><span class="font-bold text-slate-700">7.629 <span class="text-xs text-slate-400 font-normal ml-1">(29,3%)</span></span></div><div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-slate-400 h-2 rounded-full" style="width: 97.4%"></div></div></div>
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">LBME</span><span class="font-bold text-slate-700">6.764 <span class="text-xs text-slate-400 font-normal ml-1">(26,0%)</span></span></div><div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-slate-400 h-2 rounded-full" style="width: 86.4%"></div></div></div>
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">VDB</span><span class="font-bold text-slate-700">3.610 <span class="text-xs text-slate-400 font-normal ml-1">(13,9%)</span></span></div><div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-slate-400 h-2 rounded-full" style="width: 46.1%"></div></div></div>
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">WCL</span><span class="font-bold text-slate-700">167 <span class="text-xs text-slate-400 font-normal ml-1">(0,6%)</span></span></div><div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-slate-400 h-2 rounded-full" style="width: 2.1%"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUNA AGOSTO -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 border-b-2 border-indigo-200 pb-3">
+                        <i class="fa-solid fa-fire text-indigo-500 text-xl"></i>
+                        <h3 class="text-xl font-black text-indigo-800 uppercase tracking-wide">Resultados Agosto</h3>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl shadow-sm bg-gradient-to-br from-indigo-500 to-indigo-700 text-white relative overflow-hidden">
+                        <div class="absolute right-0 top-0 opacity-10 transform translate-x-4 -translate-y-4">
+                            <i class="fa-solid fa-check-double text-9xl"></i>
+                        </div>
+                        <h3 class="text-indigo-100 font-medium mb-1 uppercase text-xs font-bold tracking-wider">Total Publicações Seven + Legis</h3>
+                        <div class="text-5xl font-black mb-2 tracking-tight">33.836</div>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-2xl shadow-sm border border-indigo-100 bg-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-800">Ranking Agosto</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">TFC</span><span class="font-bold text-indigo-600">10.538 <span class="text-xs text-slate-400 font-normal ml-1">(31,1%)</span></span></div><div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-indigo-500 h-2 rounded-full progress-bar-animated" style="width: 100%"></div></div></div>
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">ANBS</span><span class="font-bold text-indigo-600">10.071 <span class="text-xs text-slate-400 font-normal ml-1">(29,8%)</span></span></div><div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full progress-bar-animated" style="width: 95.6%"></div></div></div>
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">VDB</span><span class="font-bold text-indigo-600">7.075 <span class="text-xs text-slate-400 font-normal ml-1">(20,9%)</span></span></div><div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-cyan-500 h-2 rounded-full progress-bar-animated" style="width: 67.1%"></div></div></div>
+                            <div><div class="flex justify-between text-sm mb-1"><span class="font-bold text-slate-700">LBME</span><span class="font-bold text-indigo-600">6.152 <span class="text-xs text-slate-400 font-normal ml-1">(18,2%)</span></span></div><div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-sky-500 h-2 rounded-full progress-bar-animated" style="width: 58.4%"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="carteiras" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Gestão de Carteiras Fixas</h2>
+                <p class="text-slate-500 text-sm">Distribuição das responsabilidades por grupos e clientes comparativo (Julho x Agosto).</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <!-- CARTEIRAS JULHO -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-slate-600 border-b-2 border-slate-200 pb-2 mb-4">Julho</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="glass-card p-4 rounded-xl border border-slate-200 shadow-sm bg-slate-50">
+                            <h3 class="font-bold text-slate-800 mb-2">ANBS</h3>
+                            <ul class="space-y-1 text-xs text-slate-600 font-medium">
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Mercado Livre</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Bradesco</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Nubank</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-200 shadow-sm bg-slate-50">
+                            <h3 class="font-bold text-slate-800 mb-2">LBME</h3>
+                            <ul class="space-y-1 text-xs text-slate-600 font-medium">
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Nubank</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Buser</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Juntos Energia</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-200 shadow-sm bg-slate-50">
+                            <h3 class="font-bold text-slate-800 mb-2">TFC</h3>
+                            <ul class="space-y-1 text-xs text-slate-600 font-medium">
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Mercado Livre</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Mova</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> IFood</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-200 shadow-sm bg-slate-50">
+                            <h3 class="font-bold text-slate-800 mb-2">VDB</h3>
+                            <ul class="space-y-1 text-xs text-slate-600 font-medium">
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Serasa</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> 3 Corações</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Solfácil</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> JRCA</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> JLR</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Grupo Via 1</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> TECAR</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Totvs</li>
+                                <li><i class="fa-solid fa-building text-slate-400 w-4"></i> Demais clientes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARTEIRAS AGOSTO -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-indigo-800 border-b-2 border-indigo-200 pb-2 mb-4">Agosto</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="glass-card p-4 rounded-xl border border-indigo-100 shadow-sm bg-white">
+                            <h3 class="font-bold text-indigo-900 mb-2">ANBS</h3>
+                            <ul class="space-y-1 text-xs text-slate-600 font-medium">
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Nubank</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Mercado Livre</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Bradesco</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Serasa</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Buser</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> IFood</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-indigo-100 shadow-sm bg-white">
+                            <h3 class="font-bold text-indigo-900 mb-2">LBME</h3>
+                            <ul class="space-y-1 text-xs text-slate-600 font-medium">
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Nubank</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Mercado Livre</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Bradesco</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Serasa</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Buser</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> IFood</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-indigo-100 shadow-sm bg-white">
+                            <h3 class="font-bold text-indigo-900 mb-2">TFC</h3>
+                            <ul class="space-y-1 text-xs text-slate-600 font-medium">
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Nubank</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Mercado Livre</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Bradesco</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Serasa</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Buser</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> IFood</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-indigo-100 shadow-sm bg-white">
+                            <h3 class="font-bold text-indigo-900 mb-2">VDB</h3>
+                            <ul class="space-y-1 text-xs text-slate-600 font-medium">
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Nubank</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Mercado Livre</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Bradesco</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Serasa</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> Buser</li>
+                                <li><i class="fa-solid fa-building text-indigo-300 w-4"></i> IFood</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="diario" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Produtividade Individual Diária</h2>
+                <p class="text-slate-500 text-sm">Cálculo de publicações processadas por dia útil.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <!-- DIÁRIO JULHO -->
+                <div class="glass-card p-8 rounded-2xl shadow-sm border border-slate-200 bg-slate-50">
+                    <h3 class="text-xl font-bold text-slate-600 border-b-2 border-slate-200 pb-2 mb-6">Julho</h3>
+                    <div class="space-y-6">
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">TFC</span><span class="font-black text-slate-700 text-2xl">356 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-200 rounded-full h-3"><div class="bg-slate-600 h-3 rounded-full" style="width: 100%"></div></div></div>
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">ANBS</span><span class="font-black text-slate-700 text-2xl">347 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-200 rounded-full h-3"><div class="bg-slate-500 h-3 rounded-full" style="width: 97.4%"></div></div></div>
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">LBME</span><span class="font-black text-slate-700 text-2xl">307 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-200 rounded-full h-3"><div class="bg-slate-400 h-3 rounded-full" style="width: 86.2%"></div></div></div>
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">VDB</span><span class="font-black text-slate-700 text-2xl">164 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-200 rounded-full h-3"><div class="bg-slate-400 h-3 rounded-full" style="width: 46.0%"></div></div></div>
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">WCL</span><span class="font-black text-slate-700 text-2xl">8 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-200 rounded-full h-3"><div class="bg-slate-300 h-3 rounded-full" style="width: 2.2%"></div></div></div>
+                    </div>
+                </div>
+
+                <!-- DIÁRIO AGOSTO -->
+                <div class="glass-card p-8 rounded-2xl shadow-sm border border-indigo-100 bg-white">
+                    <h3 class="text-xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-2 mb-6">Agosto</h3>
+                    <div class="space-y-6 mb-6">
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">TFC</span><span class="font-black text-indigo-600 text-2xl">526 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-100 rounded-full h-3"><div class="bg-indigo-500 h-3 rounded-full progress-bar-animated" style="width: 100%"></div></div></div>
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">ANBS</span><span class="font-black text-indigo-600 text-2xl">503 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-100 rounded-full h-3"><div class="bg-blue-500 h-3 rounded-full progress-bar-animated" style="width: 95.6%"></div></div></div>
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">VDB</span><span class="font-black text-indigo-600 text-2xl">354 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-100 rounded-full h-3"><div class="bg-cyan-500 h-3 rounded-full progress-bar-animated" style="width: 67.3%"></div></div></div>
+                        <div><div class="flex justify-between items-end mb-2"><span class="font-bold text-slate-700 text-lg">LBME</span><span class="font-black text-indigo-600 text-2xl">256 <span class="text-sm text-slate-400 font-medium">pub/dia</span></span></div><div class="w-full bg-slate-100 rounded-full h-3"><div class="bg-sky-500 h-3 rounded-full progress-bar-animated" style="width: 48.7%"></div></div></div>
+                    </div>
+                    
+                    <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl text-sm text-amber-900 shadow-sm">
+                        <h4 class="font-bold flex items-center gap-2 mb-3"><i class="fa-solid fa-circle-exclamation text-amber-600 text-lg"></i> Observação Operacional (18/08 a 21/08)</h4>
+                        <p class="mb-3 text-amber-800">A colaboradora <strong>LBME</strong> apresentou atestado médico neste período, gerando o redirecionamento de seu fluxo produtivo:</p>
+                        <ul class="space-y-2">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i> <span><strong>Sistema Seven:</strong> Soma de 4.947 publicações repassadas (totalizando 1.649 para cada integrante), sendo uma parcial de 412 publicações.</span></li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i> <span><strong>Sistema Legis:</strong> Total de 2.123 publicações repassadas (totalizando 707 para cada integrante), sendo a parcial de 176 publicações.</span></li>
+                            <li class="flex gap-2"><i class="fa-solid fa-arrow-trend-up text-amber-600 mt-0.5"></i> <span><strong>Impacto:</strong> Média extra de <strong>588 publicações</strong> assumidas por cada um dos 3 demais integrantes.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="publicacoes" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Detalhamento de Publicações</h2>
+                <p class="text-slate-500 text-sm">Distribuição detalhada por clientes dentro das publicações Registradas e Descartadas (Top 3 clientes por advogado).</p>
+            </div>
+
+            <!-- BLOCO REGISTRADAS -->
+            <div class="mb-14">
+                <div class="flex items-center gap-2 mb-6">
+                    <i class="fa-solid fa-folder-plus text-2xl text-emerald-600"></i>
+                    <h3 class="font-bold text-2xl text-slate-800">Publicações Registradas</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- Registradas Julho (Lado Esquerdo - Histórico) -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-600 border-b border-slate-200 pb-2 mb-4 uppercase tracking-wide">Julho <span class="text-xs font-normal bg-slate-200 px-2 py-1 rounded ml-2 text-slate-700">Total: 12.017</span></h4>
+                        <div class="space-y-4">
+                            <!-- ANBS -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">ANBS</h5><span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 rounded">3.507</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Nubank</span><span class="font-semibold">1996 (56,9%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Mercado Livre</span><span class="font-semibold">1392 (39,7%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Serasa</span><span class="font-semibold">62 (1,8%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">57 (1,6%)</span></div>
+                            </div></div>
+                            <!-- LBME -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">LBME</h5><span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 rounded">3.397</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Nubank</span><span class="font-semibold">3319 (97,7%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Bradesco</span><span class="font-semibold">28 (0,8%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Serasa</span><span class="font-semibold">23 (0,7%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">27 (0,8%)</span></div>
+                            </div></div>
+                            <!-- TFC -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">TFC</h5><span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 rounded">4.228</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Mercado Livre</span><span class="font-semibold">3426 (81,0%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Ifood</span><span class="font-semibold">393 (9,3%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Nubank</span><span class="font-semibold">190 (4,5%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">219 (5,2%)</span></div>
+                            </div></div>
+                            <!-- VDB -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">VDB</h5><span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 rounded">885</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Nubank</span><span class="font-semibold">745 (84,2%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Três Corações</span><span class="font-semibold">44 (5,0%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Serasa</span><span class="font-semibold">39 (4,4%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">57 (6,4%)</span></div>
+                            </div></div>
+                        </div>
+                    </div>
+
+                    <!-- Registradas Agosto (Lado Direito - Atual) -->
+                    <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100 shadow-sm relative overflow-hidden">
+                        <div class="absolute right-0 top-0 opacity-5 transform translate-x-4 -translate-y-4">
+                            <i class="fa-solid fa-folder-plus text-9xl text-indigo-900"></i>
+                        </div>
+                        <h4 class="font-bold text-indigo-800 border-b border-indigo-200 pb-2 mb-4 uppercase tracking-wide relative z-10">Agosto <span class="text-xs font-bold bg-indigo-600 text-white px-2 py-1 rounded ml-2 shadow-sm">Total: 13.839</span></h4>
+                        <div class="space-y-4 relative z-10">
+                            <!-- ANBS -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-50"><div class="flex justify-between mb-2"><h5 class="font-bold text-indigo-900">ANBS</h5><span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 rounded">4.830</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-700"><span>Nubank</span><span class="font-semibold">2055 (42,5%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Mercado Livre</span><span class="font-semibold">1568 (32,5%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Serasa</span><span class="font-semibold">536 (11,1%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">671 (13,9%)</span></div>
+                            </div></div>
+                            <!-- LBME -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-50"><div class="flex justify-between mb-2"><h5 class="font-bold text-indigo-900">LBME</h5><span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 rounded">2.096</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-700"><span>Nubank</span><span class="font-semibold">930 (44,4%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Mercado Livre</span><span class="font-semibold">649 (31,0%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Serasa</span><span class="font-semibold">200 (9,5%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">317 (15,1%)</span></div>
+                            </div></div>
+                            <!-- TFC -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-50"><div class="flex justify-between mb-2"><h5 class="font-bold text-indigo-900">TFC</h5><span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 rounded">4.705</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-700"><span>Nubank</span><span class="font-semibold">2309 (49,1%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Mercado Livre</span><span class="font-semibold">1361 (28,9%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Serasa</span><span class="font-semibold">593 (12,6%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">442 (9,4%)</span></div>
+                            </div></div>
+                            <!-- VDB -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-50"><div class="flex justify-between mb-2"><h5 class="font-bold text-indigo-900">VDB</h5><span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 rounded">2.208</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-700"><span>Nubank</span><span class="font-semibold">748 (33,9%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Mercado Livre</span><span class="font-semibold">622 (28,2%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Serasa</span><span class="font-semibold">609 (27,6%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">229 (10,3%)</span></div>
+                            </div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO DESCARTADAS -->
+            <div>
+                <div class="flex items-center gap-2 mb-6">
+                    <i class="fa-solid fa-folder-minus text-2xl text-rose-500"></i>
+                    <h3 class="font-bold text-2xl text-slate-800">Publicações Descartadas</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- Descartadas Julho (Lado Esquerdo - Histórico) -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-600 border-b border-slate-200 pb-2 mb-4 uppercase tracking-wide">Julho <span class="text-xs font-normal bg-slate-200 px-2 py-1 rounded ml-2 text-slate-700">Total: 13.978</span></h4>
+                        <div class="space-y-4">
+                            <!-- ANBS -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">ANBS</h5><span class="text-xs font-bold text-slate-500">4.122</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Nubank</span><span class="font-semibold">1475 (35,8%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Mercado Livre</span><span class="font-semibold">1016 (24,6%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Bradesco</span><span class="font-semibold">937 (22,7%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">694 (16,8%)</span></div>
+                            </div></div>
+                            <!-- LBME -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">LBME</h5><span class="text-xs font-bold text-slate-500">3.367</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Nubank</span><span class="font-semibold">3036 (90,2%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Buser</span><span class="font-semibold">200 (5,9%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Bradesco</span><span class="font-semibold">53 (1,6%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">78 (2,3%)</span></div>
+                            </div></div>
+                            <!-- TFC -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">TFC</h5><span class="text-xs font-bold text-slate-500">3.597</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Mercado Livre</span><span class="font-semibold">2678 (74,5%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Serasa</span><span class="font-semibold">287 (8,0%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Ifood</span><span class="font-semibold">178 (4,9%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">454 (12,6%)</span></div>
+                            </div></div>
+                            <!-- VDB -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">VDB</h5><span class="text-xs font-bold text-slate-500">2.725</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Serasa</span><span class="font-semibold">1822 (66,9%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Nubank</span><span class="font-semibold">413 (15,2%)</span></div>
+                                <div class="flex justify-between text-slate-600"><span>Eurovia</span><span class="font-semibold">232 (8,5%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">258 (9,5%)</span></div>
+                            </div></div>
+                            <!-- WCL -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100"><div class="flex justify-between mb-2"><h5 class="font-bold text-slate-800">WCL</h5><span class="text-xs font-bold text-slate-500">167</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600"><span>Serasa</span><span class="font-semibold">167 (100%)</span></div>
+                            </div></div>
+                        </div>
+                    </div>
+
+                    <!-- Descartadas Agosto (Lado Direito - Atual) -->
+                    <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100 shadow-sm relative overflow-hidden">
+                        <div class="absolute right-0 top-0 opacity-5 transform translate-x-4 -translate-y-4">
+                            <i class="fa-solid fa-folder-minus text-9xl text-rose-900"></i>
+                        </div>
+                        <h4 class="font-bold text-rose-800 border-b border-rose-200 pb-2 mb-4 uppercase tracking-wide relative z-10">Agosto <span class="text-xs font-bold bg-rose-500 text-white px-2 py-1 rounded ml-2 shadow-sm">Total: 19.997</span></h4>
+                        <div class="space-y-4 relative z-10">
+                            <!-- ANBS -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-rose-50"><div class="flex justify-between mb-2"><h5 class="font-bold text-rose-900">ANBS</h5><span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 rounded">5.241</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-700"><span>Bradesco</span><span class="font-semibold">1082 (20,6%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Nubank</span><span class="font-semibold">1062 (20,3%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Serasa</span><span class="font-semibold">1062 (20,3%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">2035 (38,8%)</span></div>
+                            </div></div>
+                            <!-- LBME -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-rose-50"><div class="flex justify-between mb-2"><h5 class="font-bold text-rose-900">LBME</h5><span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 rounded">4.056</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-700"><span>Nubank</span><span class="font-semibold">1274 (31,4%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Bradesco</span><span class="font-semibold">704 (17,4%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Serasa</span><span class="font-semibold">679 (16,7%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">1399 (34,5%)</span></div>
+                            </div></div>
+                            <!-- TFC -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-rose-50"><div class="flex justify-between mb-2"><h5 class="font-bold text-rose-900">TFC</h5><span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 rounded">5.833</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-700"><span>Serasa</span><span class="font-semibold">1483 (25,4%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Mercado Livre</span><span class="font-semibold">1399 (24,0%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Nubank</span><span class="font-semibold">1298 (22,3%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">1653 (28,3%)</span></div>
+                            </div></div>
+                            <!-- VDB -->
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-rose-50"><div class="flex justify-between mb-2"><h5 class="font-bold text-rose-900">VDB</h5><span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 rounded">4.867</span></div><div class="space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-700"><span>Serasa</span><span class="font-semibold">2275 (46,7%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Mercado Livre</span><span class="font-semibold">888 (18,2%)</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Nubank</span><span class="font-semibold">799 (16,4%)</span></div>
+                                <div class="flex justify-between text-slate-500 italic mt-1 border-t border-slate-100 pt-1"><span>Demais Clientes</span><span class="font-medium">905 (18,7%)</span></div>
+                            </div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="atividades" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Audiência, Prazos, Compromissos e Diligências - Mapeamento do Fluxo Registrado</h2>
+                <p class="text-slate-500 text-sm">Comparativo lado a lado de fluxos e atividades entre os meses.</p>
+            </div>
+
+            <div class="space-y-8">
+                
+                <!-- AUDIÊNCIAS -->
+                <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-200 bg-white">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                        <div class="bg-purple-100 p-3 rounded-xl text-purple-600"><i class="fa-solid fa-gavel"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800">Audiências (Geral)</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                        <!-- JULHO -->
+                        <div class="pt-4 md:pt-0 pr-0 md:pr-4">
+                            <h4 class="font-bold text-slate-500 mb-4 flex justify-between">Julho <span class="bg-slate-100 text-xs px-2 py-1 rounded">Total: 1.344</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between items-center p-2 rounded bg-slate-50"><span class="font-medium text-slate-700">TFC</span><div><span class="font-bold">470</span> <span class="text-xs text-slate-400">(35,0%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">ANBS</span><div><span class="font-bold">407</span> <span class="text-xs text-slate-400">(30,3%)</span></div></li>
+                                <li class="flex justify-between items-center p-2 rounded bg-slate-50"><span class="font-medium text-slate-700">LBME</span><div><span class="font-bold">391</span> <span class="text-xs text-slate-400">(29,1%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">VDB</span><div><span class="font-bold">76</span> <span class="text-xs text-slate-400">(5,7%)</span></div></li>
+                            </ul>
+                        </div>
+                        <!-- AGOSTO -->
+                        <div class="pt-4 md:pt-0 pl-0 md:pl-4">
+                            <h4 class="font-bold text-indigo-700 mb-4 flex justify-between">Agosto <span class="bg-indigo-50 text-xs px-2 py-1 rounded">Total: 1.404</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between items-center p-2 rounded bg-indigo-50/50"><span class="font-medium text-slate-700">ANBS</span><div><span class="font-bold text-indigo-900">483</span> <span class="text-xs text-slate-400">(34,4%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">TFC</span><div><span class="font-bold text-indigo-900">411</span> <span class="text-xs text-slate-400">(29,3%)</span></div></li>
+                                <li class="flex justify-between items-center p-2 rounded bg-indigo-50/50"><span class="font-medium text-slate-700">LBME</span><div><span class="font-bold text-indigo-900">316</span> <span class="text-xs text-slate-400">(22,5%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">VDB</span><div><span class="font-bold text-indigo-900">194</span> <span class="text-xs text-slate-400">(13,8%)</span></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMPROMISSOS -->
+                <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-200 bg-white">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                        <div class="bg-amber-100 p-3 rounded-xl text-amber-600"><i class="fa-solid fa-calendar-check"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800">Compromissos</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                        <!-- JULHO -->
+                        <div class="pt-4 md:pt-0 pr-0 md:pr-4">
+                            <h4 class="font-bold text-slate-500 mb-4 flex justify-between">Julho <span class="bg-slate-100 text-xs px-2 py-1 rounded">Total: 7.108</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between items-center p-2 rounded bg-slate-50"><span class="font-medium text-slate-700">TFC</span><div><span class="font-bold">2.567</span> <span class="text-xs text-slate-400 ml-2">VP: 12</span> <span class="text-xs text-slate-400">(36,1%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">ANBS</span><div><span class="font-bold">2.169</span> <span class="text-xs text-slate-400 ml-2">VP: 35</span> <span class="text-xs text-slate-400">(30,5%)</span></div></li>
+                                <li class="flex justify-between items-center p-2 rounded bg-slate-50"><span class="font-medium text-slate-700">LBME</span><div><span class="font-bold">1.942</span> <span class="text-xs text-slate-400 ml-2">VP: 169</span> <span class="text-xs text-slate-400">(27,3%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">VDB</span><div><span class="font-bold">430</span> <span class="text-xs text-slate-400 ml-2">VP: 10</span> <span class="text-xs text-slate-400">(6,0%)</span></div></li>
+                            </ul>
+                        </div>
+                        <!-- AGOSTO -->
+                        <div class="pt-4 md:pt-0 pl-0 md:pl-4">
+                            <h4 class="font-bold text-indigo-700 mb-4 flex justify-between">Agosto <span class="bg-indigo-50 text-xs px-2 py-1 rounded">Total: 7.016</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between items-center p-2 rounded bg-indigo-50/50"><span class="font-medium text-slate-700">ANBS</span><div><span class="font-bold text-indigo-900">2.818</span> <span class="text-xs text-slate-400 ml-2">GEN: 105</span> <span class="text-xs text-slate-400">(40,2%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">TFC</span><div><span class="font-bold text-indigo-900">2.186</span> <span class="text-xs text-slate-400 ml-2">GEN: 23</span> <span class="text-xs text-slate-400">(31,2%)</span></div></li>
+                                <li class="flex justify-between items-center p-2 rounded bg-indigo-50/50"><span class="font-medium text-slate-700">LBME</span><div><span class="font-bold text-indigo-900">1.030</span> <span class="text-xs text-slate-400 ml-2">GEN: 46</span> <span class="text-xs text-slate-400">(14,7%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">VDB</span><div><span class="font-bold text-indigo-900">982</span> <span class="text-xs text-slate-400 ml-2">GEN: 38</span> <span class="text-xs text-slate-400">(14,0%)</span></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRAZOS -->
+                <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-200 bg-white">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                        <div class="bg-rose-100 p-3 rounded-xl text-rose-600"><i class="fa-solid fa-stopwatch"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800">Prazos</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                        <!-- JULHO -->
+                        <div class="pt-4 md:pt-0 pr-0 md:pr-4">
+                            <h4 class="font-bold text-slate-500 mb-4 flex justify-between">Julho <span class="bg-slate-100 text-xs px-2 py-1 rounded">Total: 3.537</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between items-center p-2 rounded bg-slate-50"><span class="font-medium text-slate-700">TFC</span><div><span class="font-bold">1.167</span> <span class="text-xs text-slate-400">(33,0%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">LBME</span><div><span class="font-bold">1.063</span> <span class="text-xs text-slate-400">(30,1%)</span></div></li>
+                                <li class="flex justify-between items-center p-2 rounded bg-slate-50"><span class="font-medium text-slate-700">ANBS</span><div><span class="font-bold">931</span> <span class="text-xs text-slate-400">(26,3%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">VDB</span><div><span class="font-bold">376</span> <span class="text-xs text-slate-400">(10,6%)</span></div></li>
+                            </ul>
+                        </div>
+                        <!-- AGOSTO -->
+                        <div class="pt-4 md:pt-0 pl-0 md:pl-4">
+                            <h4 class="font-bold text-indigo-700 mb-4 flex justify-between">Agosto <span class="bg-indigo-50 text-xs px-2 py-1 rounded">Total: 5.652</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between items-center p-2 rounded bg-indigo-50/50"><span class="font-medium text-slate-700">TFC</span><div><span class="font-bold text-indigo-900">2.084</span> <span class="text-xs text-slate-400">(36,9%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">ANBS</span><div><span class="font-bold text-indigo-900">1.523</span> <span class="text-xs text-slate-400">(26,9%)</span></div></li>
+                                <li class="flex justify-between items-center p-2 rounded bg-indigo-50/50"><span class="font-medium text-slate-700">LBME</span><div><span class="font-bold text-indigo-900">1.029</span> <span class="text-xs text-slate-400">(18,2%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">VDB</span><div><span class="font-bold text-indigo-900">1.016</span> <span class="text-xs text-slate-400">(18,0%)</span></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DILIGÊNCIAS -->
+                <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-200 bg-white">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                        <div class="bg-emerald-100 p-3 rounded-xl text-emerald-600"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800">Diligências</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                        <!-- JULHO -->
+                        <div class="pt-4 md:pt-0 pr-0 md:pr-4">
+                            <h4 class="font-bold text-slate-500 mb-4 flex justify-between">Julho <span class="bg-slate-100 text-xs px-2 py-1 rounded">Total: 28</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between items-center p-2 rounded bg-slate-50"><span class="font-medium text-slate-700">TFC</span><div><span class="font-bold">24</span> <span class="text-xs text-slate-400">(85,7%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">VDB</span><div><span class="font-bold">3</span> <span class="text-xs text-slate-400">(10,7%)</span></div></li>
+                                <li class="flex justify-between items-center p-2 rounded bg-slate-50"><span class="font-medium text-slate-700">LBME</span><div><span class="font-bold">1</span> <span class="text-xs text-slate-400">(3,6%)</span></div></li>
+                            </ul>
+                        </div>
+                        <!-- AGOSTO -->
+                        <div class="pt-4 md:pt-0 pl-0 md:pl-4">
+                            <h4 class="font-bold text-indigo-700 mb-4 flex justify-between">Agosto <span class="bg-indigo-50 text-xs px-2 py-1 rounded">Total: 47</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between items-center p-2 rounded bg-indigo-50/50"><span class="font-medium text-slate-700">TFC</span><div><span class="font-bold text-indigo-900">24</span> <span class="text-xs text-slate-400">(51,1%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">VDB</span><div><span class="font-bold text-indigo-900">16</span> <span class="text-xs text-slate-400">(34,0%)</span></div></li>
+                                <li class="flex justify-between items-center p-2 rounded bg-indigo-50/50"><span class="font-medium text-slate-700">ANBS</span><div><span class="font-bold text-indigo-900">6</span> <span class="text-xs text-slate-400">(12,8%)</span></div></li>
+                                <li class="flex justify-between items-center p-2"><span class="font-medium text-slate-700">LBME</span><div><span class="font-bold text-indigo-900">1</span> <span class="text-xs text-slate-400">(2,1%)</span></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="erros" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Erros e Correções (Advogados / CJ)</h2>
+                <p class="text-slate-500 text-sm">Mapeamento de falhas e providências cadastradas nos sistemas</p>
+            </div>
+
+            <!-- TABELAS ADVOGADOS -->
+            <div class="mb-10">
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-user-tie text-slate-400 text-xl"></i>
+                    <h3 class="font-bold text-xl text-slate-800">ADVOGADOS</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                    
+                    <!-- QUADRO JULHO -->
+                    <div class="glass-card rounded-2xl shadow-sm border border-slate-200 bg-white overflow-hidden flex flex-col">
+                        <h4 class="font-bold text-slate-600 bg-slate-50 p-4 border-b border-slate-200 uppercase tracking-wide flex justify-between items-center">
+                            Julho 
+                            <span class="text-xs font-bold bg-slate-200 px-2 py-1 rounded text-slate-700">Total: 8</span>
+                        </h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs text-slate-600 whitespace-nowrap">
+                                <thead class="bg-slate-50 text-slate-700 uppercase font-semibold border-b border-slate-200">
+                                    <tr>
+                                        <th class="px-4 py-3">Data</th>
+                                        <th class="px-4 py-3">Responsável</th>
+                                        <th class="px-4 py-3">Cliente</th>
+                                        <th class="px-4 py-3">Processo</th>
+                                        <th class="px-4 py-3">Tipo de Falha</th>
+                                        <th class="px-4 py-3">Providência</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-4 py-3">01/07/2026</td>
+                                        <td class="px-4 py-3 font-semibold">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Buser</td>
+                                        <td class="px-4 py-3 font-medium">3008377-95.2026.8.06.6001</td>
+                                        <td class="px-4 py-3 text-rose-600 truncate max-w-[150px]" title="Cadastro sistema errado">Cadastro sistema errado</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-4 py-3">01/07/2026</td>
+                                        <td class="px-4 py-3 font-semibold">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Buser</td>
+                                        <td class="px-4 py-3 font-medium">4001281.31.2026.8.26.06.09</td>
+                                        <td class="px-4 py-3 text-rose-600 truncate max-w-[150px]" title="Cadastro sistema errado">Cadastro sistema errado</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-4 py-3">07/07/2026</td>
+                                        <td class="px-4 py-3 font-semibold">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Azul Companhia</td>
+                                        <td class="px-4 py-3 font-medium">1040818-94.2025.8.26.0100</td>
+                                        <td class="px-4 py-3 text-rose-600 truncate max-w-[150px]" title="Proc. descontratados">Proc. descontratados</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-slate-200 text-slate-700 rounded font-bold">Sim (Encerrado)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-4 py-3">07/07/2026</td>
+                                        <td class="px-4 py-3 font-semibold">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Azul Companhia</td>
+                                        <td class="px-4 py-3 font-medium">0801446-20.2024.8.20.5114</td>
+                                        <td class="px-4 py-3 text-rose-600 truncate max-w-[150px]" title="Proc. descontratados">Proc. descontratados</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-slate-200 text-slate-700 rounded font-bold">Sim (Encerrado)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-4 py-3">21/07/2026</td>
+                                        <td class="px-4 py-3 font-semibold">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Nubank</td>
+                                        <td class="px-4 py-3 font-medium">0009370-77.2026.8.05.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 truncate max-w-[150px]" title="Descarte de publicação - sentença - pagamento da condenação">Descarte de publicação - sent...</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-4 py-3">28/07/2026</td>
+                                        <td class="px-4 py-3 font-semibold">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Nubank</td>
+                                        <td class="px-4 py-3 font-medium">0234800-81.2025.8.05.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 truncate max-w-[150px]" title="Descarte de publicação - ausência de cr ao agravo interno">Descarte de publicação - ausê...</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-4 py-3">28/07/2026</td>
+                                        <td class="px-4 py-3 font-semibold">Ana Beatriz</td>
+                                        <td class="px-4 py-3 capitalize">Nubank</td>
+                                        <td class="px-4 py-3 font-medium">0000938-77.2026.8.05.0063</td>
+                                        <td class="px-4 py-3 text-rose-600 truncate max-w-[150px]" title="Cadastro de parecer errado desf. era fav.">Cadastro de parecer errado d...</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-slate-200 text-slate-700 rounded font-bold">Sim (Encerrado)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="px-4 py-3">28/07/2026</td>
+                                        <td class="px-4 py-3 font-semibold">Ana Beatriz</td>
+                                        <td class="px-4 py-3 capitalize">Nubank</td>
+                                        <td class="px-4 py-3 font-medium">0000720-49.2026.8.05.0063</td>
+                                        <td class="px-4 py-3 text-rose-600 truncate max-w-[150px]" title="Cadastro de parecer errado desf. era fav.">Cadastro de parecer errado d...</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-slate-200 text-slate-700 rounded font-bold">Sim (Encerrado)</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- QUADRO AGOSTO -->
+                    <div class="glass-card rounded-2xl shadow-sm border border-indigo-200 bg-white overflow-hidden flex flex-col">
+                        <h4 class="font-bold text-indigo-800 bg-indigo-50 p-4 border-b border-indigo-100 uppercase tracking-wide flex justify-between items-center">
+                            Agosto 
+                            <span class="text-xs font-bold bg-indigo-600 text-white px-2 py-1 rounded shadow-sm">Total: 13</span>
+                        </h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs text-slate-600 whitespace-nowrap">
+                                <thead class="bg-indigo-50/50 text-indigo-900 uppercase font-semibold border-b border-indigo-100">
+                                    <tr>
+                                        <th class="px-4 py-3">Data</th>
+                                        <th class="px-4 py-3">Responsável</th>
+                                        <th class="px-4 py-3">Cliente</th>
+                                        <th class="px-4 py-3">Processo</th>
+                                        <th class="px-4 py-3">Tipo de Falha</th>
+                                        <th class="px-4 py-3">Providência</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-indigo-50">
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">06/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Nubank</td>
+                                        <td class="px-4 py-3 font-medium">0713286-67.2023.8.02.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Cadastro de parecer ed errado - era inclusão da pauta da sessão</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">06/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Nubank</td>
+                                        <td class="px-4 py-3 font-medium">0110514-94.2026.8.05.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Parecer favorável descartado - fiz o registro assim que identificado</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">19/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Thiago</td>
+                                        <td class="px-4 py-3 capitalize">Mercado Livre</td>
+                                        <td class="px-4 py-3 font-medium">0801223-84.2025.8.12.0028</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Parecer def. o correto era favorável</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">20/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Thiago</td>
+                                        <td class="px-4 py-3 capitalize">Mercado Livre</td>
+                                        <td class="px-4 py-3 font-medium">0801909-35.2023.8.10.0050</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Cadastrou compromisso e era prazo de EE</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">20/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Thiago</td>
+                                        <td class="px-4 py-3 capitalize">Mercado Livre</td>
+                                        <td class="px-4 py-3 font-medium">0001005-43.2028.8.05.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Cadastrou compromisso e era prazo de EE</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">20/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Thiago</td>
+                                        <td class="px-4 py-3 capitalize">Mercado Livre</td>
+                                        <td class="px-4 py-3 font-medium">7003037-17.2025.8.22.0012</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Cadastrou compromisso e era prazo de EE</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">21/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Ana Beatriz</td>
+                                        <td class="px-4 py-3 capitalize">Mercado Livre</td>
+                                        <td class="px-4 py-3 font-medium">7003037-17.2025.8.22.0012</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Cadastrou manifestação e era regularizar representação</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">24/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Ana Beatriz</td>
+                                        <td class="px-4 py-3 capitalize">Serasa</td>
+                                        <td class="px-4 py-3 font-medium">0103356-85.2026.8.05.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Cadastrou parecer ed - era parecer favorável</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">24/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Ana Beatriz</td>
+                                        <td class="px-4 py-3 capitalize">Bradesco</td>
+                                        <td class="px-4 py-3 font-medium">0800712-88.2026.8.10.0034</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Pendência na complementação do compromisso - custas - faltou comprovar</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">24/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Luana Bandeira</td>
+                                        <td class="px-4 py-3 capitalize">Nubank</td>
+                                        <td class="px-4 py-3 font-medium">0713286-67.2023.8.02.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Cadastrou parecer ed - era parecer favorável</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">25/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Thiago</td>
+                                        <td class="px-4 py-3 capitalize">Mercado Livre</td>
+                                        <td class="px-4 py-3 font-medium">0817973-19.2026.8.19.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Cadastrou acompanhar bloqueio e era embargos à execução</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">25/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Ana Beatriz</td>
+                                        <td class="px-4 py-3 capitalize">Mercado Livre</td>
+                                        <td class="px-4 py-3 font-medium">0050616-90.2026.8.04.1000</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Verificar cumprimento de sentença e era solicitar obp</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-4 py-3">25/08/2026</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-900">Thiago</td>
+                                        <td class="px-4 py-3 capitalize">Mercado Livre</td>
+                                        <td class="px-4 py-3 font-medium">1002692-61.2026.8.11.0001</td>
+                                        <td class="px-4 py-3 text-rose-600 whitespace-normal min-w-[250px]">Verificar cumprimento de sentença e era solicitar obp</td>
+                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded font-bold">Sim (Ativo)</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            // Oculta todos os conteúdos das abas
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Reseta estilo dos botões das abas
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-white', 'text-indigo-900', 'text-slate-900');
+                el.classList.add('text-indigo-100');
+            });
+            
+            // Mostra tab atual
+            document.getElementById(tabId).classList.add('active');
+            
+            // Estiliza botão atual
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.remove('text-indigo-100');
+            activeBtn.classList.add('bg-white', 'text-indigo-900');
+        }
+    </script>
+</body>
+</html>
